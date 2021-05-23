@@ -186,7 +186,6 @@ In the end, the Train accuracy reached 80% and the Test accuracy 66.66%.
 the test accuracy worsened a bit, but remained steady overall. The numbers look like this:
 at 98.66% Train accuracy, the Test accuracy was 75.15% which, considering the limited amount
 of data fed into the algorithm, is a plus in my book, so we'll take it.
-
 ![alt text](assets/img2.png)
 
 ## OpenCV?
