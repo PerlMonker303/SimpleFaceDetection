@@ -10,15 +10,11 @@ from torch.autograd import Variable
 from PIL import Image
 
 # PATH = "models/faceModel_23.model"  # Train acc: 93.33%, Test acc: 76.36%
-PATH = "models/faceModel_31.model"  # Train acc: 98.66%, Test acc: 75.15%
+PATH = "models/faceModel_31_good.model"  # Train acc: 98.66%, Test acc: 75.15%
 # PATH = "models/faceModel_29_good.model"
 CONFIDENCE_THRESHOLD = 0.85
 
-def inference(image):
-
-    # load the model
-    model = SimpleNet(2)
-    model.load_state_dict(torch.load(PATH))
+def inference(model, image):
     model.eval()
 
     return predictImage(model, image)
@@ -62,6 +58,10 @@ if __name__ == "__main__":
     fontColor = (255, 255, 255)
     lineType = 2
 
+    # load the model
+    model = SimpleNet(2)
+    model.load_state_dict(torch.load(PATH))
+
     video_capture = cv2.VideoCapture(0)  # internal web-cam
     while True:
         # (, last frame)
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
         img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(img)
-        confidence = inference(img)
+        confidence = inference(model, img)
 
         text = "Face detected: False {}%".format(round(confidence * 100, 2))
         if confidence >= CONFIDENCE_THRESHOLD:
